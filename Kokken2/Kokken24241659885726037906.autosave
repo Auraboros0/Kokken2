@@ -1,0 +1,154 @@
+import gifAnimation.*;
+
+TitleScreen ts;
+charSample CS;
+MainMenu mm;
+mainGame MG;
+Credits cr;
+PlayGame pg;
+VersusBattle vb;
+mapSelection ms;
+
+int bgColor = 90;
+int progState;
+//progState0 = titleScreen
+//progState1 = mainMenu
+//progState2 = options
+//progState3 = updates
+//progState4 = credits
+//progState5 = playGame
+//progState6 = versusBattle
+//progState7 = mapSelection
+
+void setup() {
+  size(1200, 800);
+  //fullScreen(P2D);
+  progState = 0;
+  //CS = new charSample();
+  ts = new TitleScreen();
+  MG = new mainGame();
+  mm = new MainMenu();
+  cr = new Credits();
+  pg = new PlayGame();
+  vb = new VersusBattle();
+  ms = new mapSelection();
+}
+
+void draw() {
+  background(90);
+  //MG.gameDraw();
+  //ts.display();
+  //if (CS.ATK_STATE == "STARTUP") {
+  //  bgColor = #FF0000;
+  //} else if (CS.ATK_STATE == "ACTIVE") {
+  //  bgColor = #00FF00;
+  //} else if (CS.ATK_STATE == "RECOVERY") {
+  //  bgColor = #0000FF;
+  //} else {
+  //  bgColor = 90;
+  //}
+  ////CS.SAMPLE_ATK();
+  //println(CS.actionCount);
+  //println(CS.ATK_STATE);
+
+  //Program States
+  if (progState == 0) {
+    ts.display();
+    ts.update();
+  }
+  if (progState == 1) {
+    mm.display();
+    mm.update();
+  }
+  if (progState == 4) {
+    cr.display();
+    cr.update();
+  }
+  if (progState == 5) {
+    pg.display();
+    pg.update();
+  }
+  if (progState == 6) {
+    vb.display();
+    vb.update();
+  }
+  if (progState == 7) {
+    ms.display();
+    ms.update();
+  }
+  if (progState == 8) {
+    MG.gameDraw();
+  }
+}
+
+void keyPressed() {
+  if (progState == 1) {
+    mm.keyPressed();
+  }
+  if (progState == 4) {
+    cr.keyPressed();
+  }
+  if (progState == 5) {
+    pg.keyPressed();
+  }
+  if (progState == 6) {
+    vb.keyPressed();
+  }
+  if (progState == 8) {
+    MG.keyPressed();
+  }
+}
+
+void keyReleased() {
+  if (progState == 8) {
+    MG.keyReleased();
+  }
+}
+
+void mousePressed() {
+  ts.mousePressed();
+  if (progState == 4) {
+    cr.mousePressed();
+  }
+  if (progState == 5) {
+    pg.mousePressed();
+  }
+  if (progState == 6) {
+    vb.mousePressed();
+  }
+
+  if (progState == 1) {
+    //PlayGame
+    if (mm.hy == height/2-100) {
+      progState = 5;
+      mm.hy = -265;
+    }
+    //Credits
+    if (mm.hy == height/2+50) {
+      progState = 4;
+      mm.hy = -265;
+    }
+    //Back to the title screen
+    if (mm.hy == height/2+100) {
+      progState = 0;
+      mm.hy = -265;
+    }
+  }
+  //Play Game to Versus Battle
+  if (progState == 5) {
+    if (pg.hy == height/2-100) {
+      progState = 6;
+      mm.hy = -265;
+      pg.hy = -265;
+    }
+  }
+  //Versus Battle to Map Selection
+  if (progState == 6) {
+    if (vb.hy == height/2+100) {
+      progState = 5;
+      mm.hy = -265;
+      pg.hy = -265;
+      vb.hy = -265;
+    }
+  }
+}
