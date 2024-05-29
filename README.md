@@ -1,3 +1,5 @@
+PLEASE INSTALL PROCESSING FROM PROCESSING.ORG TO RUN THE PROGRAM
+MAKE SURE TO INSTALL THE SOUND LIBRARY FROM SKETCH -> IMPORT LIBRARY -> MANAGE LIBRARIES
 KOKKEN 2: Two-Person fighter developed in Processing By Joaquin Herrera, Cameron Sanders and Randee Haynes Jr.
 
 Developed as a final project for a Java programming class.
